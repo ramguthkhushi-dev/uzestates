@@ -1,0 +1,15 @@
+# Local config — copy config/config.example.php to config/config.php after clone
+config/config.php
+
+# Runtime (sessions, backups)
+storage/sessions/*
+!storage/sessions/.gitkeep
+storage/backups/*
+!storage/backups/.gitkeep
+
+# OS / editor
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

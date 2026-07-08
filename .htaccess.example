@@ -1,0 +1,10 @@
+# Production HTTPS redirect — copy to .htaccess when deploying with SSL.
+# Local XAMPP: do not enable (leave FORCE_HTTPS unset).
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP_HOST} !^localhost [NC]
+  RewriteCond %{HTTP_HOST} !^127\.0\.0\.1 [NC]
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>

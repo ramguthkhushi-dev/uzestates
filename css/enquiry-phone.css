@@ -1,0 +1,165 @@
+/* intl-tel-input v25 — enquiry forms (contact + property detail) */
+
+.enquiry-phone-field {
+  display: block;
+  width: 100%;
+}
+
+.enquiry-phone-field .iti {
+  display: block;
+  width: 100%;
+}
+
+.enquiry-phone-field .iti__tel-input,
+.enquiry-phone-field .iti input[type="tel"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.enquiry-phone-field .iti__country-container {
+  padding: 0;
+}
+
+.enquiry-phone-field .iti__selected-country {
+  padding: 0 8px 0 10px;
+  border-radius: 4px 0 0 4px;
+}
+
+.enquiry-phone-field .iti__selected-country-primary {
+  padding-right: 4px;
+}
+
+.enquiry-phone-field .iti__arrow {
+  margin-left: 4px;
+  border-top-color: currentColor;
+  opacity: 0.55;
+}
+
+/* v25 country list + legacy class fallback */
+.enquiry-phone-field .iti__country-selector,
+.enquiry-phone-field .iti__dropdown-content {
+  z-index: 10050;
+  max-height: min(280px, 50vh);
+  border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+.enquiry-phone-field .iti__search-input {
+  padding: 10px 12px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.iti--detached-country-selector .iti__country-selector,
+.iti--detached-country-selector .iti__dropdown-content {
+  z-index: 10050;
+}
+
+/* Property detail — dark enquiry form */
+.detail-form .enquiry-phone-field .iti__tel-input,
+.detail-form .enquiry-phone-field .iti input[type="tel"] {
+  padding: 11px 12px 11px 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: none;
+  border-radius: 0 4px 4px 0;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--cream);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.detail-form .enquiry-phone-field .iti__country-container {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-right: none;
+  border-radius: 4px 0 0 4px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.detail-form .enquiry-phone-field .iti__selected-dial-code {
+  color: var(--cream);
+}
+
+.detail-form .enquiry-phone-field .iti__arrow {
+  border-top-color: var(--cream);
+}
+
+.detail-form .enquiry-phone-field .iti__selected-country:hover,
+.detail-form .enquiry-phone-field .iti__selected-country:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.detail-form .detail-field.has-error .enquiry-phone-field .iti__tel-input,
+.detail-form .detail-field.has-error .enquiry-phone-field .iti input[type="tel"],
+.detail-form .detail-field.has-error .enquiry-phone-field .iti__country-container {
+  border-color: rgba(248, 196, 192, 0.55);
+}
+
+.detail-form .enquiry-phone-field .iti__tel-input::placeholder {
+  color: rgba(242, 235, 223, 0.35);
+}
+
+/* Contact page — dark form */
+.contact-enquiry-form .enquiry-phone-field .iti__tel-input,
+.contact-enquiry-form .enquiry-phone-field .iti input[type="tel"] {
+  padding: 13px 14px 13px 0;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-left: none;
+  border-radius: 0 6px 6px 0;
+  background: rgba(0, 0, 0, 0.15);
+  color: var(--cream);
+  font-family: inherit;
+  font-size: 14px;
+}
+
+.contact-enquiry-form .enquiry-phone-field .iti__country-container {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-right: none;
+  border-radius: 6px 0 0 6px;
+  background: rgba(0, 0, 0, 0.15);
+}
+
+.contact-enquiry-form .enquiry-phone-field .iti__selected-dial-code {
+  color: var(--cream);
+}
+
+.contact-enquiry-form .enquiry-phone-field .iti__arrow {
+  border-top-color: var(--cream);
+}
+
+.contact-enquiry-form .enquiry-phone-field .iti__selected-country:hover,
+.contact-enquiry-form .enquiry-phone-field .iti__selected-country:focus-visible {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.contact-enquiry-form .contact-form-field.has-error .enquiry-phone-field .iti__tel-input,
+.contact-enquiry-form .contact-form-field.has-error .enquiry-phone-field .iti input[type="tel"],
+.contact-enquiry-form .contact-form-field.has-error .enquiry-phone-field .iti__country-container {
+  border-color: rgba(248, 196, 192, 0.55);
+}
+
+.contact-enquiry-form .enquiry-phone-field .iti__tel-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.contact-enquiry-form .enquiry-field-error,
+.detail-form .enquiry-field-error {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #f8c4c0;
+}
+
+.enquiry-honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.enquiry-recaptcha {
+  margin: 4px 0 8px;
+}

@@ -1,0 +1,483 @@
+/* UZ Estates — Admin login & password reset */
+
+:root {
+  --green: #31483f;
+  --green-dark: #20332d;
+  --cream: #f2ebdf;
+  --cream-light: #fbf7f0;
+  --tan: #d1bea2;
+  --text: #24302d;
+  --muted: #6f7773;
+  --white: #ffffff;
+  --line: rgba(49, 72, 63, 0.15);
+  --error: #b42318;
+  --error-bg: #fef3f2;
+  --success: #2d6a4f;
+  --success-bg: #ecfdf3;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body.admin-auth-body {
+  min-height: 100vh;
+  font-family: "DM Sans", system-ui, -apple-system, Segoe UI, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--cream-light);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.admin-auth-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(340px, 46%) 1fr;
+}
+
+.admin-auth-aside {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(48px, 10vh, 96px) clamp(44px, 6vw, 80px);
+  color: var(--cream);
+  background-color: var(--green-dark);
+  background-image:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, transparent 38%),
+    linear-gradient(135deg, rgba(209, 190, 162, 0.07) 0%, transparent 52%);
+  border-right: 1px solid rgba(209, 190, 162, 0.1);
+  overflow: hidden;
+}
+
+.admin-auth-aside::before {
+  content: "";
+  position: absolute;
+  top: clamp(48px, 10vh, 96px);
+  left: clamp(44px, 6vw, 80px);
+  width: 64px;
+  height: 2px;
+  background: var(--tan);
+  pointer-events: none;
+}
+
+.admin-auth-aside-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 440px;
+  padding-top: 32px;
+}
+
+.admin-auth-brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.admin-auth-logo {
+  display: block;
+  width: 120px;
+  height: 120px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.admin-auth-aside-brand h1 {
+  margin: 0;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-size: clamp(36px, 4.8vw, 52px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  color: var(--white);
+}
+
+.admin-auth-aside-brand p {
+  margin: 10px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--tan);
+}
+
+.admin-auth-aside-tagline {
+  position: relative;
+  margin: 36px 0 0;
+  padding-top: 32px;
+  max-width: 32ch;
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(242, 235, 223, 0.72);
+}
+
+.admin-auth-aside-tagline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 140px;
+  height: 1px;
+  background: rgba(209, 190, 162, 0.28);
+}
+
+.admin-auth-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(32px, 6vw, 64px);
+  background: var(--cream-light);
+}
+
+.admin-auth-panel {
+  width: min(400px, 100%);
+}
+
+.admin-auth-head {
+  margin-bottom: 32px;
+}
+
+.admin-auth-head h2 {
+  margin: 0 0 8px;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  font-size: clamp(26px, 3vw, 30px);
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--green);
+}
+
+.admin-auth-head p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+/* Form */
+.admin-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.admin-auth-form .form-field {
+  display: block;
+  margin: 0;
+}
+
+.admin-auth-form .form-field > span {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.admin-auth-form .form-field > input,
+.admin-auth-form .form-field .admin-password-wrap input {
+  display: block;
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font: inherit;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--white);
+  appearance: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.admin-auth-form .form-field > input::placeholder,
+.admin-auth-form .form-field .admin-password-wrap input::placeholder {
+  color: rgba(111, 119, 115, 0.65);
+}
+
+.admin-auth-form .form-field > input:focus,
+.admin-auth-form .form-field .admin-password-wrap input:focus {
+  outline: none;
+  border-color: var(--green);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(49, 72, 63, 0.1);
+}
+
+.admin-auth-options {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: -2px;
+}
+
+.admin-auth-options .form-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.admin-auth-options .form-check input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--green);
+  cursor: pointer;
+}
+
+.admin-auth-link {
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--green);
+  border-bottom: 1px solid rgba(49, 72, 63, 0.22);
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.admin-auth-link:hover {
+  color: var(--green-dark);
+  border-color: var(--green-dark);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 20px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+  background: var(--green);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--green-dark);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.admin-auth-submit {
+  margin-top: 6px;
+  padding: 14px 20px;
+  border-radius: 10px;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+  box-shadow: 0 8px 24px rgba(49, 72, 63, 0.18);
+}
+
+.admin-auth-submit:hover {
+  box-shadow: 0 12px 28px rgba(49, 72, 63, 0.22);
+  transform: translateY(-1px);
+}
+
+.admin-auth-submit:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 18px rgba(49, 72, 63, 0.16);
+}
+
+/* Alerts */
+.alert {
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.admin-auth-panel .alert {
+  margin-bottom: 24px;
+}
+
+.alert-error {
+  background: var(--error-bg);
+  color: var(--error);
+  border: 1px solid rgba(180, 35, 24, 0.2);
+}
+
+.alert-success {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid rgba(45, 106, 79, 0.2);
+}
+
+.alert-success a {
+  color: var(--success);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Footer */
+.admin-auth-foot {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.admin-auth-foot a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--muted);
+  transition: color 0.2s ease;
+}
+
+.admin-auth-foot a:hover {
+  color: var(--green);
+}
+
+@media (max-width: 860px) {
+  .admin-auth-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-auth-aside {
+    padding: 28px 24px 32px;
+    border-right: none;
+    border-bottom: 1px solid rgba(209, 190, 162, 0.1);
+  }
+
+  .admin-auth-aside::before {
+    top: 28px;
+    left: 24px;
+    width: 40px;
+  }
+
+  .admin-auth-aside-inner {
+    max-width: none;
+    padding-top: 22px;
+  }
+
+  .admin-auth-brand-lockup {
+    gap: 20px;
+  }
+
+  .admin-auth-logo {
+    width: 72px;
+    height: 72px;
+  }
+
+  .admin-auth-aside-brand h1 {
+    font-size: 30px;
+  }
+
+  .admin-auth-aside-tagline {
+    display: none;
+  }
+
+  .admin-auth-main {
+    padding: 28px 24px 40px;
+    align-items: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-auth-submit,
+  .btn {
+    transition: none;
+  }
+
+  .admin-auth-submit:hover,
+  .admin-auth-submit:active {
+    transform: none;
+  }
+}
+
+/* Password show/hide */
+.admin-auth-form .admin-password-wrap,
+.admin-form .admin-password-wrap {
+  position: relative;
+  display: block;
+  width: 100%;
+}
+
+.admin-auth-form .admin-password-wrap input,
+.admin-form .admin-password-wrap input {
+  padding-right: 48px;
+}
+
+.admin-password-toggle {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.admin-password-toggle:hover {
+  color: var(--green);
+  background: rgba(49, 72, 63, 0.06);
+}
+
+.admin-eye-hide {
+  display: none;
+}
+
+.admin-password-toggle.is-visible .admin-eye-show {
+  display: none;
+}
+
+.admin-password-toggle.is-visible .admin-eye-hide {
+  display: block;
+}
+
+.admin-field-error {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--error);
+  min-height: 16px;
+}
+
+.admin-auth-form .form-field > input.is-invalid,
+.admin-auth-form .form-field .admin-password-wrap input.is-invalid,
+.admin-form .form-field input.is-invalid {
+  border-color: rgba(180, 35, 24, 0.55);
+  box-shadow: 0 0 0 3px rgba(180, 35, 24, 0.08);
+}
